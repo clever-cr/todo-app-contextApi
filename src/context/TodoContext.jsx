@@ -4,21 +4,17 @@ const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
   const [inputValue, setInputValue] = useState("");
-  const [editInput, setEditInput] = useState("");
   const [allTodos, setAllTodos] = useState([]);
+
   const handleChange = (event) => setInputValue(event.target.value);
-  const handleEditInput = (event) => {
-    setEditInput(event.target.value);
-  };
+
   const handleAdd = () => {
-    if (inputValue == "") {
-      alert("Add a todo");
-    } else {
-      setAllTodos((prevtodo) => [
-        { text: inputValue, checked: false },
-        ...prevtodo,
-      ]);
-    }
+    if (inputValue == "") alert("Add a todo");
+    setAllTodos((prevtodo) => [
+      { text: inputValue, checked: false },
+      ...prevtodo,
+    ]);
+    setInputValue("");
   };
 
   const handleDelete = (i) =>
@@ -30,14 +26,7 @@ export const TodoProvider = ({ children }) => {
       });
     });
   };
-  const handleEdit = (i) => {
-    setEditInput(text);
-    setAllTodos((prevtodos) => {
-      return prevtodos.map((item, index) => {
-        return index === i ? { ...item, text: editInput } : item;
-      });
-    });
-  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -47,9 +36,7 @@ export const TodoProvider = ({ children }) => {
         handleAdd,
         handleDelete,
         todoCheck,
-        handleEdit,
-        editInput,
-        handleEditInput,
+        setAllTodos,
       }}
     >
       {children}

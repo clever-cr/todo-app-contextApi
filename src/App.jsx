@@ -19,7 +19,7 @@ const App = () => {
             onChange={handleChange}
             value={inputValue}
           />
-          {console.log("input", inputValue)}
+
           <GoPlus
             onClick={handleAdd}
             className="bg-green-700 text-white rounded-full px-1 w-5 h-5"
